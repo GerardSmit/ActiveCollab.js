@@ -33,6 +33,6 @@ describe('Account', function() {
     });
 
     describe('#projects()', function () {
-        it('should success', () => account.projects());
+        it('should success', () => account.getProjects());
     });
 });

@@ -146,6 +146,16 @@ class List {
     empty() {
         return this.items.length === 0;
     }
+
+    /**
+     * Join the map to a single string.
+     *
+     * @param {string} [separator]
+     * @returns {string}
+     */
+    join(separator) {
+        return this.items.join(separator);
+    }
 }
 
 module.exports = List;

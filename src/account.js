@@ -54,7 +54,7 @@ class Account {
      *
      * @returns {Promise<List<Object>>}
      */
-    projects() {
+    getProjects() {
         return new Promise((accept, reject) => {
             if (this.token === null) {
                 reject('The token is null. Call Account.issueToken first.')
