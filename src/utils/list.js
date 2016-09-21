@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Class List
+ */
 class List {
     /**
      * List constructor.
@@ -38,10 +41,10 @@ class List {
      */
     last(callback) {
         if (!callback) {
-            return this.items.length > 0 ? this.items[0] : null;
+            return this.items.length > 0 ? this.items[this.items.length - 1] : null;
         }
 
-        for (let i = this.items.length - 1; i >= 0; i++) {
+        for (let i = this.items.length - 1; i >= 0; i--) {
             let item = this.items[i];
             if (callback(item, i, this.items)) {
                 return item;
@@ -73,12 +76,26 @@ class List {
     }
 
     /**
+     * Delete the given item.
+     *
+     * @param {*} item
+     * @returns {List}
+     */
+    remove(item) {
+        let index = this.items.indexOf(item);
+        if (index > -1) {
+            this.items.splice(index, 1);
+        }
+        return this;
+    }
+
+    /**
      * Delete all the items.
      *
      * @param {function(*=, number=, Array=)} [callback]
      * @returns {List}
      */
-    deleteAll(callback) {
+    removeAll(callback) {
         this.items = callback ? this.items.filter((fn, items) => !callback(fn, items)) : [];
         return this;
     }
