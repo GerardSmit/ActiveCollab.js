@@ -2,17 +2,16 @@ const assert = require('assert');
 const ActiveCollab = require('../index');
 const fs = require('fs');
 
-if(!fs.existsSync('credentials.json', 'utf-8')) {
-    throw 'Expected a file `credentials.json` with the email and password.';
+if(!process.env.email || !process.env.password) {
+    throw 'Expected an email and password in process.env';
 }
 
 const client = new ActiveCollab.Client('ActiveCollab.js', 'Gerard');
-const credentials = JSON.parse(fs.readFileSync('credentials.json', 'utf-8'));
 
 describe('Client', function() {
     describe('#login()', function() {
         it('should fail', () => client.login().shouldFail);
-        it('should login', () => client.login(credentials.email, credentials.password));
+        it('should login', () => client.login(process.env.email, process.env.password));
     });
 });
 
