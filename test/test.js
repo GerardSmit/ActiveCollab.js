@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 const ActiveCollab = require('../index');
 const fs = require('fs');
