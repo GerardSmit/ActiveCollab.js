@@ -28,3 +28,8 @@ client.login('email', 'password')
     .then((projects) => console.log(`I am in ${projects.size()} project(s)! The names are: ${projects.map((project) => project.name).join(', ')}`))
     .catch((e) => console.log('Failed to load the example: ', e));
 ```
+
+## Links
+- [npm](https://www.npmjs.com/package/activecollab.js) - ActiveCollab.js on npm.
+- [GitHub](https://github.com/gerardsmit/activecollab.js) - ActiveCollab.js on GitHub.
+- [activecollab/activecollab-feather-sdk](https://github.com/activecollab/activecollab-feather-sdk) - Offical PHP library of ActiveCollab.
