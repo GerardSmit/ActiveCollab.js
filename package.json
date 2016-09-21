@@ -1,0 +1,28 @@
+{
+  "name": "activecollab.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gerardsmit/activecollab.js.git"
+  },
+  "keywords": [
+    "activecollab"
+  ],
+  "author": "Gerard Smit <gsmit1996@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gerardsmit/activecollab.js/issues"
+  },
+  "homepage": "https://github.com/gerardsmit/activecollab.js#readme",
+  "dependencies": {
+    "request": "^2.75.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.0.2"
+  }
+}
