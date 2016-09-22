@@ -35,17 +35,13 @@ describe('Account', function () {
         it('should fetch the token', () => account.issueToken());
     });
 
-    describe('#addProject()', function () {
-        it('should add a new project', () => account.addProject());
+    describe('#projects()', function () {
+        it('should get the projects', () => account.projects());
     });
 
-    describe('#getProjects()', function () {
-        it('should get the projects', () => account.getProjects());
-    });
-
-    describe('#addProject()', function () {
-        it('should fail because the name is missing', () => expect(account.addProject({})).to.be.rejected);
-        it('should add a new Test project', () => expect(account.addProject({name: 'Test'})).to.be.fulfilled);
+    describe('#projects.add()', function () {
+        it('should fail because the name is missing', () => expect(account.projects.add({})).to.be.rejected);
+        it('should add a new Test project', () => expect(account.projects.add({name: 'Test'})).to.be.fulfilled);
     });
 });
 
@@ -62,7 +58,7 @@ describe('Project', function () {
 
     describe('#remove()', function () {
         it('should remove the Test project(s)', () => {
-            return expect(account.getProjects()
+            return expect(account.projects()
                 .then((projects) => projects
                     .filter((project) => project.name === 'Test')
                     .promise((project) => project.remove())

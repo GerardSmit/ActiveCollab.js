@@ -24,7 +24,7 @@ client.login('<EMAIL>', '<PASSWORD>')
 
         return client.accounts.first().issueToken();
     })
-    .then((account) => account.getProjects())
+    .then((account) => account.projects())
     .then((projects) => console.log(`I am in ${projects.size()} project(s)! The names are: ${projects.map((project) => project.name).join(', ')}`))
     .catch((e) => console.log('Failed to load the example: ', e));
 ```

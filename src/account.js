@@ -24,6 +24,7 @@ class Account {
         this.display_name = data.display_name;
         this.class = data.class;
         this.token = null;
+        this.projects = this._createProp('projects');
     }
 
     /**
@@ -187,21 +188,19 @@ class Account {
     }
 
     /**
-     * Fetch all the projects from ActiveCollab.
+     * Create a property.
      *
-     * @returns {Promise<List<Project>>}
+     * @param url
+     * @returns {function(): Promise|{get: (function(): Promise), add: (function(*=): Promise), update: (function(*=): Promise), remove: (function(*): Promise)}}
+     * @private
      */
-    getProjects() {
-        return this.get('projects');
-    }
-
-    /**
-     * Add a new project.
-     *
-     * @returns {Promise<List<Project>>}
-     */
-    addProject(project) {
-        return this.post('projects', project);
+    _createProp(url) {
+        let prop = () => this.get(url);
+        prop.get = () => this.get(url);
+        prop.add = (object) => this.post(url, object);
+        prop.update = (object) => this.put(url + '/' + object.id, object);
+        prop.remove = (object) => this.remove(url + '/' + object.id);
+        return prop;
     }
 }
 
