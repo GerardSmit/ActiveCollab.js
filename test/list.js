@@ -2,6 +2,10 @@
 
 const List = require('../src/utils/list');
 const assert = require('assert');
+const chai = require('chai');
+const expect = chai.expect;
+const chaiAsPromised = require("chai-as-promised");
+chai.use(chaiAsPromised);
 
 describe('List', function() {
     describe('#add()', function() {
@@ -152,7 +156,7 @@ describe('List', function() {
                 Promise.resolve(),
                 Promise.reject()
             ]);
-            return list.promise().shouldFail;
+            return expect(list.promise()).to.be.rejected;
         });
 
 
