@@ -16,7 +16,7 @@ ActiveCollab.js doesn't support browsers yet. This will be added in the feature
 const ActiveCollab = require('activecollab.js');
 const client = new ActiveCollab.Client('<NAME>', '<VENDOR>');
 
-client.login('email', 'password')
+client.login('<EMAIL>', '<PASSWORD>')
     .then(() => {
         if (client.accounts.empty()) {
             throw 'There are no accounts in bounded to this user.';
@@ -32,4 +32,5 @@ client.login('email', 'password')
 ## Links
 - [npm](https://www.npmjs.com/package/activecollab.js) - ActiveCollab.js on npm.
 - [GitHub](https://github.com/gerardsmit/activecollab.js) - ActiveCollab.js on GitHub.
+- [Travis CI](https://travis-ci.org/gerardsmit/ActiveCollab.js) - ActiveCollab.js on Travis CI.
 - [activecollab/activecollab-feather-sdk](https://github.com/activecollab/activecollab-feather-sdk) - Offical PHP library of ActiveCollab.

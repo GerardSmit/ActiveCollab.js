@@ -130,4 +130,38 @@ describe('List', function() {
             assert.deepEqual(list, new List(['FOO', 'BAR']));
         });
     });
+
+    describe('#forEach()', function() {
+        it('should loop through the list', () => {
+            let list = new List(['foo']);
+            list.forEach((item) => assert.equal(item, 'foo'));
+        });
+    });
+
+    describe('#promises()', function() {
+        it('should should accept all the promises', () => {
+            let list = new List([
+                Promise.resolve(),
+                Promise.resolve()
+            ]);
+            return list.promise();
+        });
+
+        it('should should reject', () => {
+            let list = new List([
+                Promise.resolve(),
+                Promise.reject()
+            ]);
+            return list.promise().shouldFail;
+        });
+
+
+        it('should should accept all the promises with callback', () => {
+            let list = new List([
+                () => Promise.resolve(),
+                () => Promise.resolve()
+            ]);
+            return list.promise((callback) => callback());
+        });
+    });
 });

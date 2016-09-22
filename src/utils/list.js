@@ -156,6 +156,42 @@ class List {
     join(separator) {
         return this.items.join(separator);
     }
+
+    /**
+     * Get all the promises and call Promise.all.
+     *
+     * @param [callback]
+     * @returns {Promise}
+     */
+    promise(callback) {
+        let promises = (callback ? this.items.map(callback) : this.items).filter(promise => promise instanceof Promise);
+        return promises.length === 0 ? Promise.resolve() : Promise.all(promises);
+    }
+
+    /**
+     * Loop through all the items.
+     *
+     * @param callback
+     * @returns {List}
+     */
+    forEach(callback) {
+        this.items.forEach(callback);
+        return this;
+    }
+
+    /**
+     * Iterator
+     *
+     * @returns {{next: (function(): {value: *, done: boolean})}}
+     */
+    [Symbol.iterator]() {
+        var index = 0;
+        var data = this.items;
+
+        return {
+            next: () => ({value: data[index++], done: index >= data.length})
+        };
+    };
 }
 
 module.exports = List;

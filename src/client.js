@@ -34,13 +34,12 @@ class Client {
         return new Promise((accept, reject) => {
             request.post({
                 url: 'https://my.activecollab.com/api/v1/external/login',
-                form: {
+                json: {
                     email: email,
                     password: password
                 }
-            }, (err, response, body) => {
+            }, (err, response, data) => {
                 if (err) reject(err);
-                let data = JSON.parse(body);
                 if (!data['is_ok']) {
                     reject(data['message']);
                     return;
