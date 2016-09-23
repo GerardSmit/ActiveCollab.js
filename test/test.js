@@ -40,8 +40,8 @@ describe('Account', function () {
     });
 
     describe('#projects.add()', function () {
-        it('should fail because the name is missing', () => expect(account.projects.add({})).to.be.rejected);
-        it('should add a new Test project', () => expect(account.projects.add({name: 'Test'})).to.be.fulfilled);
+        it('should fail because the name is missing', () => expect(account.projects.create({})).to.be.rejected);
+        it('should add a new Test project', () => expect(account.projects.create({name: 'Test'})).to.be.fulfilled);
     });
 });
 
