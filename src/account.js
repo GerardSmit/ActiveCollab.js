@@ -5,7 +5,8 @@ const List = require('./utils/list');
 const Base = require('./classes/base');
 const classes = {
     Project: require('./classes/project'),
-    Task: require('./classes/projects/task')
+    Task: require('./classes/projects/task'),
+    Subtask: require('./classes/projects/subtask')
 };
 
 /**

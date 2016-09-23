@@ -40,7 +40,13 @@ client.login(process.env.email, process.env.password)
     .then((project) => {
         // Add a new task in the project.
         return project.tasks.create({
-            name: "Example Task"
+            name: 'Example task'
+        });
+    })
+    .then((task) => {
+        // Add a subtask in teh task
+        return task.subTasks.create({
+            body: 'Example subtask'
         });
     })
     .then(() => console.log('Created project with task'))

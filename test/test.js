@@ -39,12 +39,11 @@ describe('Account', function () {
         it('should get the projects', () => account.projects());
     });
 
-    describe('#projects.add()', function () {
+    describe('#projects.create()', function () {
         it('should fail because the name is missing', () => expect(account.projects.create({})).to.be.rejected);
         it('should add a new Test project', () => expect(account.projects.create({name: 'Test'})).to.be.fulfilled);
     });
 });
-
 describe('Project', function () {
     let account;
 
@@ -58,8 +57,9 @@ describe('Project', function () {
 
     describe('#remove()', function () {
         it('should remove the Test project(s)', () => {
-            return expect(account.projects()
-                .then((projects) => projects
+            return expect(
+                account.projects()
+                    .then((projects) => projects
                     .filter((project) => project.name === 'Test')
                     .promise((project) => project.remove())
                 )

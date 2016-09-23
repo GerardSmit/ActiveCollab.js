@@ -50,6 +50,22 @@ class Base {
             return Promise.resolve();
         }
     }
+
+    /**
+     * Create a property.
+     *
+     * @param url
+     * @returns {function(): Promise|{read: (function(): Promise), create: (function(*=): Promise), update: (function(*=): Promise), remove: (function(*): Promise)}}
+     * @protected
+     */
+    _createProp(url) {
+        let prop = () => this.account.get(url())['tasks'];
+        prop.read = () => this.account.get(url());
+        prop.create = (object) => this.account.post(url(), object);
+        prop.update = (object) => this.account.put(url(), object);
+        prop.remove = (object) => this.account.remove(url());
+        return prop;
+    }
 }
 
 module.exports = Base;
