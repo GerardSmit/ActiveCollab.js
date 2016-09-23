@@ -10,6 +10,15 @@ class Base {
         }
     }
 
+    /**
+     * Get the path of the class.
+     *
+     * @returns {string}
+     */
+    getPath() {
+        return this.path;
+    }
+
     set(data) {
         if (data) {
             for (let key of Object.keys(data)) {
@@ -24,9 +33,9 @@ class Base {
         }
 
         if (this.id) {
-            return this.account.put(this.path + '/' + this.id, this);
+            return this.account.put(this.getPath() + '/' + this.id, this);
         } else {
-            return this.account.post(this.path, this);
+            return this.account.post(this.getPath(), this);
         }
     }
 
@@ -36,7 +45,7 @@ class Base {
         }
 
         if (this.id) {
-            return this.account.remove(this.path + '/' + this.id);
+            return this.account.remove(this.getPath() + '/' + this.id);
         } else {
             return Promise.resolve();
         }

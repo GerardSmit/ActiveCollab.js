@@ -4,7 +4,8 @@ const request = require('request');
 const List = require('./utils/list');
 const Base = require('./classes/base');
 const classes = {
-    Project: require('./classes/project')
+    Project: require('./classes/project'),
+    Task: require('./classes/projects/task')
 };
 
 /**
@@ -124,7 +125,7 @@ class Account {
 
                 if (object instanceof Base && data['single']) {
                     object.account = this;
-                    object.set(data);
+                    object.set(data['single']);
                 } else if (data['single'] && data['single'].class) {
                     let itemClass = classes[data['single'].class];
 
@@ -132,7 +133,7 @@ class Account {
                         reject('The class ' + data['single'].class + ' is not supported (yet).');
                     }
 
-                    object = new itemClass(this, data);
+                    object = new itemClass(this, data['single']);
                 }
                 accept(object);
             });
@@ -180,7 +181,7 @@ class Account {
             }, (err, response, data) => {
                 if (err) reject(err);
                 if (object instanceof Base && data['single']) {
-                    object.set(data);
+                    object.set(data['single']);
                 }
                 accept();
             });
@@ -191,13 +192,13 @@ class Account {
      * Create a property.
      *
      * @param url
-     * @returns {function(): Promise|{get: (function(): Promise), add: (function(*=): Promise), update: (function(*=): Promise), remove: (function(*): Promise)}}
+     * @returns {function(): Promise|{read: (function(): Promise), create: (function(*=): Promise), update: (function(*=): Promise), remove: (function(*): Promise)}}
      * @private
      */
     _createProp(url) {
         let prop = () => this.get(url);
-        prop.get = () => this.get(url);
-        prop.add = (object) => this.post(url, object);
+        prop.read = () => this.get(url);
+        prop.create = (object) => this.post(url, object);
         prop.update = (object) => this.put(url + '/' + object.id, object);
         prop.remove = (object) => this.remove(url + '/' + object.id);
         return prop;
