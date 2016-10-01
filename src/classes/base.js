@@ -55,12 +55,14 @@ class Base {
      * Create a property.
      *
      * @param url
+     * @param {function(Object): Object} [getter]
      * @returns {function(): Promise|{read: (function(): Promise), create: (function(*=): Promise), update: (function(*=): Promise), remove: (function(*): Promise)}}
      * @protected
      */
-    _createProp(url) {
-        let prop = () => this.account.get(url())['tasks'];
-        prop.read = () => this.account.get(url());
+    _createProp(url, getter) {
+        getter = getter || ((result) => result);
+        let prop = () => this.account.get(url()).then(getter);
+        prop.read = () => this.account.get(url()).then(getter);
         prop.create = (object) => this.account.post(url(), object);
         prop.update = (object) => this.account.put(url(), object);
         prop.remove = (object) => this.account.remove(url());

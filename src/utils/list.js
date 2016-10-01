@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require('lodash');
+
 /**
  * Class List
  */
@@ -10,6 +12,10 @@ class List {
      * @param {Array} [items]
      */
     constructor(items) {
+        if (items && !_.isArray(items)) {
+            throw 'Expected argument 1 to be an array.';
+        }
+
         this.items = items || [];
     }
 
@@ -117,7 +123,7 @@ class List {
      * @returns {List}
      */
     map(callback) {
-        return new List(this.items.map(callback));
+        return new List(_.map(this.items, callback));
     }
 
     /**

@@ -5,7 +5,9 @@ const Base = require('../base');
 class Task extends Base {
     constructor(account, data) {
         super(account, data);
-        this.subTasks = this._createProp(() => 'projects/' + this['project_id'] + '/tasks/' + this['id'] + '/subtasks');
+        this.subTasks = this._createProp(
+            () => 'projects/' + this['project_id'] + '/tasks/' + this['id'] + '/subtasks'
+        );
     }
 
     getPath() {

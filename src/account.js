@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require('request');
+const _ = require('lodash');
 const List = require('./utils/list');
 const Base = require('./classes/base');
 const classes = {
@@ -57,6 +58,39 @@ class Account {
     }
 
     /**
+     * Convert the data from ActiveCollab to data with classes.
+     *
+     * @param data
+     * @return {*}
+     * @private
+     */
+    _convertData(data) {
+        if (!(_.isArray(data) || _.isObject(data))) {
+            return data;
+        }
+
+        var map = _.isArray(data) ? _.map : _.mapValues;
+        var result = map(data, (item) => {
+            if (item.class) {
+                let itemClass = classes[item.class];
+
+                if (!itemClass) {
+                    console.warn('The class ' + item.class + ' is not supported (yet) and is kept as an object.');
+                    return item;
+                }
+
+                return new itemClass(this, item);
+            } else {
+                item = this._convertData(item);
+            }
+
+            return item;
+        });
+
+        return _.isArray(result) ? new List(result) : result;
+    }
+
+    /**
      * Fetch data from ActiveCollab.
      *
      * All the objects are converted to classes if the 'class' key is present.
@@ -78,21 +112,8 @@ class Account {
             }, (err, response, body) => {
                 if (err) reject(err);
                 let data = JSON.parse(body);
-                let items = data.map((item) => {
-                    if (item.class) {
-                        let itemClass = classes[item.class];
-
-                        if (!itemClass) {
-                            reject('The class ' + item.class + ' is not supported (yet).');
-                        }
-
-                        return new itemClass(this, item);
-                    }
-
-                    return item;
-                });
-
-                accept(new List(items));
+                let items = this._convertData(data);
+                accept(items);
             });
         });
     }
